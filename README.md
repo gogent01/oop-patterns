@@ -5,7 +5,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 ## Table of contents
 
 1. Creational patterns
-  - 1.1 Abstact Factory
+  - 1.1 Abstract Factory
   - 1.2 Builder
   - 1.3 Factory Method
   - 1.4 Prototype
