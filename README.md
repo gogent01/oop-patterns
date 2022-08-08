@@ -9,25 +9,25 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   - 1.2 Builder
   - 1.3 Factory Method
   - 1.4 Prototype
-  - 1.5 Singleton (одиночка)
+  - 1.5 Singleton
   
 2. Structural patterns
   - 2.1 Adapter
   - 2.2 Bridge
-  - 2.3 Composite (компоновщик)
+  - 2.3 Composite
   - 2.4 Decorator
   - 2.5 Facade
-  - 2.6 Flyweight (приспособленец)
-  - 2.7 Proxy (заместитель)
+  - 2.6 Flyweight
+  - 2.7 Proxy
   
 3. Behavioral patterns
   - 3.1 Chain of Responsibility
   - 3.2 Command
   - 3.3 Interpreter
   - 3.4 Iterator
-  - 3.5 Mediator (посредник)
-  - 3.6 Memento (хранитель)
-  - 3.7 Observer (наблюдатель)
+  - 3.5 Mediator
+  - 3.6 Memento
+  - 3.7 Observer
   - 3.8 State
   - 3.9 Strategy
   - 3.10 Template Method
@@ -41,3 +41,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 
 
 ## 3. Behavioral patterns
+
+### 3.5 Mediator
+
+[Full example](examples/3. Behavioral patterns/3.5 Mediator.ts)
