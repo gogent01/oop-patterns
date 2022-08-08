@@ -1,6 +1,6 @@
 # OOP Design Patterns Workbook
 
-This workbook consists of all patterns described in "Design Patterns. Elements of Reusable Object-Oriented Software". The aim is to understand, remember and use each of them. The workbook is going to have small code examples in text, written in TypeScript. Larger examples will be placed as code files in the "examples" folder.
+This workbook contains all patterns described in "Design Patterns. Elements of Reusable Object-Oriented Software". My aim is to understand, remember and to use each of them in situations composed by myself. The workbook is going to have small code examples in text, written in TypeScript. Larger examples will be placed as code files in the "examples" folder.
 
 ## Table of contents
 
