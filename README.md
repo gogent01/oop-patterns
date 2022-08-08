@@ -44,4 +44,4 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 
 ### 3.5 Mediator
 
-[Full example](examples/3. Behavioral patterns/3.5 Mediator.ts)
+[Full example](/examples/3.%20Behavioral%20patterns/3.5%20Mediator.ts)
