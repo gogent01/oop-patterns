@@ -44,4 +44,27 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 
 ### 3.5 Mediator
 
+**Purpose**
+
+An object to incapsulate the way of interaction between objects. Decreases component coupling, thus easing component interchangeability.
+
+**When to use**
+
+A Mediator should be used whenever:
+- there are multiple object with complex unstructured relations;
+- this high coupling makes the objects difficult to reuse;
+- and it is impractical to create loads of subclasses to handle the situation.
+
+**Participants and interrelations**
+- Mediator — keeps the information about components and determines intercomponent behavior.
+- Colleagues — various objects knowing their Mediator and interacting only with it. 
+
+All Colleagues send update requests to Mediator and answer on Mediator's requests (get or set) to them. Mediator determines which information and where to get and to set on any update request.
+
+**Structure**
+
+**Example**
+
+
+
 [Full example](/examples/3.%20Behavioral%20patterns/3.5%20Mediator.ts)
