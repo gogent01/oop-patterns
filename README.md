@@ -25,12 +25,12 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   - 3.2 Command
   - 3.3 Interpreter
   - 3.4 Iterator
-  - 3.5 Mediator
+  - [3.5 Mediator](#35-mediator)
   - 3.6 Memento
-  - 3.7 Observer
+  - [3.7 Observer](#37-observer)
   - 3.8 State
   - 3.9 Strategy
-  - 3.10 Template Method
+  - [3.10 Template Method](#310-template-method)
   - 3.11 Visitor
   
   
@@ -45,11 +45,9 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 ### 3.5 Mediator
 
 **Purpose**
-
 An object to incapsulate the way of interaction between objects. Decreases component coupling, thus easing component interchangeability.
 
 **When to use**
-
 A Mediator should be used whenever:
 - there are multiple objects with complex unstructured relations;
 - this high coupling makes the objects difficult to reuse;
@@ -63,19 +61,16 @@ All Colleagues send update requests to Mediator and answer on Mediator's request
 
 **Structure**
 
-**Example**
+**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.5%20Mediator.ts)
 
-[Full example](/examples/3.%20Behavioral%20patterns/3.5%20Mediator.ts)
-
+***
 
 ### 3.7 Observer
 
 **Purpose**
-
 An object to instantly or periodically send updated information to *any* components, subscribed to the updates.
 
 **When to use**
-
 An Observer should be used whenever:
 - there are multiple objects sharing same information;
 - a change in any of them should be reflected in all others;
@@ -95,6 +90,18 @@ If Observers depend on multiple Subjects, Mediator may be required to periodical
 
 **Structure**
 
-**Example**
+**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.7%20Observer.ts)
 
-[Full example](/examples/3.%20Behavioral%20patterns/3.7%20Observer.ts)
+***
+
+### 3.10 Template Method
+
+**Purpose**
+
+**When to use**
+
+**Participants and interrelations**
+
+**Structure**
+
+**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.10%20Template%20Method.ts)
