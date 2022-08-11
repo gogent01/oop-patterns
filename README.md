@@ -51,7 +51,7 @@ An object to incapsulate the way of interaction between objects. Decreases compo
 **When to use**
 
 A Mediator should be used whenever:
-- there are multiple object with complex unstructured relations;
+- there are multiple objects with complex unstructured relations;
 - this high coupling makes the objects difficult to reuse;
 - and it is impractical to create loads of subclasses to handle the situation.
 
@@ -65,6 +65,36 @@ All Colleagues send update requests to Mediator and answer on Mediator's request
 
 **Example**
 
-
-
 [Full example](/examples/3.%20Behavioral%20patterns/3.5%20Mediator.ts)
+
+
+### 3.7 Observer
+
+**Purpose**
+
+An object to instantly or periodically send updated information to *any* components, subscribed to the updates.
+
+**When to use**
+
+An Observer should be used whenever:
+- there are multiple objects sharing same information;
+- a change in any of them should be reflected in all others;
+- it is not defined which and how many components should be updated.
+
+**Participants and interrelations**
+- Subject — keeps the information about state and subscribed components. Adds and removes subscribers.Notifies the subscribers with updates.
+- Observers — various components keeping the state to be synchronized. Update their state on notifications from Subject.
+
+Subject may notify Observers in two ways. The first way is a "push model" — sending an updated state to all subscribers, even if some do not need it. The second way is a "pull model" — sending just minimal information about update; Observers request details later.
+
+Subject's Observer registration interface may be extended to allow Observers to get only updates on selected topics.
+
+If Observers depend on multiple Subjects, update interface may be extended to include a reference to Subject that sent a notification.
+
+If Observers depend on multiple Subjects, Mediator may be required to periodically collect updates and send combined result to Observers. In this case Mediator defines the strategy of combining state updates and grouping them according to Observers' needs.
+
+**Structure**
+
+**Example**
+
+[Full example](/examples/3.%20Behavioral%20patterns/3.7%20Observer.ts)
