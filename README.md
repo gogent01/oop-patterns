@@ -98,9 +98,19 @@ If Observers depend on multiple Subjects, Mediator may be required to periodical
 
 **Purpose**
 
+Template Method defines the outline of an algorithm, allowing its subclasses to specify the steps of the algorithm.
+
 **When to use**
 
+Template Method is useful when a basic structure of an algorithm is used multiple times, but its specific steps — only single time in different variations.
+
 **Participants and interrelations**
+
+Abstract class — defines an algorithm of Template Method, methods to specify in Concrete classes and methods which may be redefined in Concrete classes.
+
+Concrete class — sets methods of steps of a Template Method.
+
+One problem to keep in scope — a necessity to specifically name Template Method's steps, obligatory and optionally for a redefinition (e.g.: *do*OpenDocument(), *may*DrawFigure()).
 
 **Structure**
 
