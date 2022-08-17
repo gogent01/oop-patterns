@@ -115,3 +115,33 @@ One problem to keep in scope — a necessity to specifically name Template Metho
 **Structure**
 
 **Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.10%20Template%20Method.ts)
+
+***
+
+### 3.11 Visitor
+
+**Purpose**
+
+To decrease repeating code from tree-node subtypes. Useful when node list is pretty consistent, but the required methods to use over them grow in numbers.
+
+**When to use**
+
+Visitor is used when there is a need to traverse a tree structure, consisting of nodes of different types, with a method, which realization differs slightly, depending on node type.
+
+**Participants and interrelations**
+
+Visitor - declares a `visit` operation for each `ConcreteElement` type.
+
+ConcreteVisitor - defines all declared `visit` operations. May store accumulative information about visited elements.
+
+Element (Node) - declares an `accept` operation, which takes a Visitor as an argument.
+
+ConcreteElement (ConcreteNode) - defines an `accept` operation. Complex Elements make all their children to accept Visitor and accept it themselves.
+
+ObjectStructure - keeps a tree of Elements and provides an entry point for Visitors.
+
+Visitors may keep a cumulative state of visited Elements — which is beneficial. On the other side, the use of Visitor pattern comes with a problem of incapsulation violation, as Elements must have an extensive interface in order for Visitors to act on them.
+
+**Structure**
+
+**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.11%20Visitor.ts)
