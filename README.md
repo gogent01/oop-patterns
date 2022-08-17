@@ -23,7 +23,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 3. Behavioral patterns
   - 3.1 Chain of Responsibility
   - 3.2 Command
-  - 3.3 Interpreter
+  - [3.3 Interpreter](#33-interpreter)
   - 3.4 Iterator
   - [3.5 Mediator](#35-mediator)
   - 3.6 Memento
@@ -31,7 +31,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   - 3.8 State
   - 3.9 Strategy
   - [3.10 Template Method](#310-template-method)
-  - 3.11 Visitor
+  - [3.11 Visitor](#311-visitor)
   
   
 ## 1. Creational patterns
@@ -42,22 +42,51 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 
 ## 3. Behavioral patterns
 
-### 3.5 Mediator
+### 3.3 Interpreter
 
 **Purpose**
+
 An object to incapsulate the way of interaction between objects. Decreases component coupling, thus easing component interchangeability.
 
 **When to use**
+
 A Mediator should be used whenever:
 - there are multiple objects with complex unstructured relations;
 - this high coupling makes the objects difficult to reuse;
 - and it is impractical to create loads of subclasses to handle the situation.
 
 **Participants and interrelations**
-- Mediator — keeps the information about components and determines intercomponent behavior.
-- Colleagues — various objects knowing their Mediator and interacting only with it. 
 
-All Colleagues send update requests to Mediator and answer on Mediator's requests (get or set) to them. Mediator determines which information and where to get and to set on any update request.
+- `Mediator` — keeps the information about components and determines intercomponent behavior.
+- `Colleagues` — various objects knowing their `Mediator` and interacting only with it.
+
+All `Colleagues` send update requests to `Mediator` and answer on `Mediator`'s requests (get or set) to them. `Mediator` determines which information and where to get and to set on any update request.
+
+**Structure**
+
+**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.3%20Interpreter.ts)
+
+***
+
+### 3.5 Mediator
+
+**Purpose**
+
+An object to incapsulate the way of interaction between objects. Decreases component coupling, thus easing component interchangeability.
+
+**When to use**
+
+A Mediator should be used whenever:
+- there are multiple objects with complex unstructured relations;
+- this high coupling makes the objects difficult to reuse;
+- and it is impractical to create loads of subclasses to handle the situation.
+
+**Participants and interrelations**
+
+- `Mediator` — keeps the information about components and determines intercomponent behavior.
+- `Colleagues` — various objects knowing their `Mediator` and interacting only with it. 
+
+All `Colleagues` send update requests to `Mediator` and answer on `Mediator`'s requests (get or set) to them. `Mediator` determines which information and where to get and to set on any update request.
 
 **Structure**
 
@@ -68,25 +97,28 @@ All Colleagues send update requests to Mediator and answer on Mediator's request
 ### 3.7 Observer
 
 **Purpose**
+
 An object to instantly or periodically send updated information to *any* components, subscribed to the updates.
 
 **When to use**
+
 An Observer should be used whenever:
 - there are multiple objects sharing same information;
 - a change in any of them should be reflected in all others;
 - it is not defined which and how many components should be updated.
 
 **Participants and interrelations**
-- Subject — keeps the information about state and subscribed components. Adds and removes subscribers.Notifies the subscribers with updates.
-- Observers — various components keeping the state to be synchronized. Update their state on notifications from Subject.
 
-Subject may notify Observers in two ways. The first way is a "push model" — sending an updated state to all subscribers, even if some do not need it. The second way is a "pull model" — sending just minimal information about update; Observers request details later.
+- `Subject` — keeps the information about state and subscribed components. Adds and removes subscribers. Notifies the subscribers with updates.
+- `Observers` — various components keeping the state to be synchronized. Update their state on notifications from `Subject`.
 
-Subject's Observer registration interface may be extended to allow Observers to get only updates on selected topics.
+`Subject` may notify `Observers` in two ways. The first way is a "push model" — sending an updated state to all subscribers, even if some do not need it. The second way is a "pull model" — sending just minimal information about update; `Observers` request details later.
 
-If Observers depend on multiple Subjects, update interface may be extended to include a reference to Subject that sent a notification.
+Subject's Observer registration interface may be extended to allow `Observers` to get only updates on selected topics.
 
-If Observers depend on multiple Subjects, Mediator may be required to periodically collect updates and send combined result to Observers. In this case Mediator defines the strategy of combining state updates and grouping them according to Observers' needs.
+If `Observers` depend on multiple `Subjects`, update interface may be extended to include a reference to `Subject` that sent a notification.
+
+If `Observers` depend on multiple `Subjects`, `Mediator` may be required to periodically collect updates and send combined result to `Observers`. In this case `Mediator` defines the strategy of combining state updates and grouping them according to Observers' needs.
 
 **Structure**
 
@@ -106,11 +138,11 @@ Template Method is useful when a basic structure of an algorithm is used multipl
 
 **Participants and interrelations**
 
-Abstract class — defines an algorithm of Template Method, methods to specify in Concrete classes and methods which may be redefined in Concrete classes.
+- `AbstractClass` — defines an algorithm of `TemplateMethod`, methods to specify in `Concrete classes` and methods which may be redefined in `Concrete classes`.
 
-Concrete class — sets methods of steps of a Template Method.
+- `ConcreteClass` — sets methods of steps of a `TemplateMethod`.
 
-One problem to keep in scope — a necessity to specifically name Template Method's steps, obligatory and optionally for a redefinition (e.g.: *do*OpenDocument(), *may*DrawFigure()).
+One problem to keep in scope — a necessity to specifically name `TemplateMethod`'s steps, obligatory and optionally for a redefinition (e.g.: `doOpenDocument()`, `mayDrawFigure()`).
 
 **Structure**
 
@@ -130,17 +162,17 @@ Visitor is used when there is a need to traverse a tree structure, consisting of
 
 **Participants and interrelations**
 
-Visitor - declares a `visit` operation for each `ConcreteElement` type.
+- `Visitor` — declares a `visit` operation for each `ConcreteElement` type.
 
-ConcreteVisitor - defines all declared `visit` operations. May store accumulative information about visited elements.
+- `ConcreteVisitor` — defines all declared `visit` operations. May store accumulative information about visited elements.
 
-Element (Node) - declares an `accept` operation, which takes a Visitor as an argument.
+- `Element` (Node) — declares an `accept` operation, which takes a `Visitor` as an argument.
 
-ConcreteElement (ConcreteNode) - defines an `accept` operation. Complex Elements make all their children to accept Visitor and accept it themselves.
+- `ConcreteElement` (ConcreteNode) — defines an `accept` operation. Complex `Elements` make all their children to `accept` a `Visitor` and `accept` it themselves.
 
-ObjectStructure - keeps a tree of Elements and provides an entry point for Visitors.
+- `ObjectStructure` — keeps a tree of `Elements` and provides an entry point for `Visitors`.
 
-Visitors may keep a cumulative state of visited Elements — which is beneficial. On the other side, the use of Visitor pattern comes with a problem of incapsulation violation, as Elements must have an extensive interface in order for Visitors to act on them.
+`Visitors` usually keep a cumulative state of visited `Elements` — which is beneficial. On the other side, the use of `Visitor` pattern comes with a problem of incapsulation violation, as `Elements` must have an extensive interface in order for `Visitors` to act on them.
 
 **Structure**
 
