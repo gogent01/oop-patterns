@@ -46,21 +46,25 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 
 **Purpose**
 
-An object to incapsulate the way of interaction between objects. Decreases component coupling, thus easing component interchangeability.
+Interpreter is a series of objects, defining the rules of a language with formal grammar. These objects are then used to transform expressions, written in a formal grammar language, into some final result. Examples are regular expressions or boolean expressions.
 
 **When to use**
 
-A Mediator should be used whenever:
-- there are multiple objects with complex unstructured relations;
-- this high coupling makes the objects difficult to reuse;
-- and it is impractical to create loads of subclasses to handle the situation.
+An Interpreter should be used when:
+- there is a frequent routine task;
+- which uses a language with a formal, but not too complex tree grammar to describe itself;
+- and code efficiency is not a keystone (complex grammar languages are translated into some form other than tree prior to interpretation).
 
 **Participants and interrelations**
 
-- `Mediator` — keeps the information about components and determines intercomponent behavior.
-- `Colleagues` — various objects knowing their `Mediator` and interacting only with it.
+- `AbstractExpression` — declares an `interpret()` method.
+- `TerminalExpression` — defines `interpret()` for each terminal symbol.
+- `NonterminalExpression` — defines `interpret()` for each nonterminal symbol, which recursively calls `interpret()` for all symbols included in this expression.
+- `Context` — contains global information (e.g. values of expression variables or all transformed states of an expression that fit the rules of language grammar).
+- `Client` — gets or creates a tree of terminal and nonterminal expressions from a sentence in a language with formal grammar.
+ Then calls an `interpret()` operation on the tree's root.
 
-All `Colleagues` send update requests to `Mediator` and answer on `Mediator`'s requests (get or set) to them. `Mediator` determines which information and where to get and to set on any update request.
+*Prior to making an Interpreter one should construct a [Backus-Naur form](https://en.wikipedia.org/wiki/Backus–Naur_form) of a language, which makes it easier to understand.*
 
 **Structure**
 
