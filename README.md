@@ -180,4 +180,4 @@ Visitor is used when there is a need to traverse a tree structure, consisting of
 
 **Structure**
 
-**Example**: [A Simple HTML Code Constructor](/examples/3.%20Behavioral%20patterns/3.11%20Visitor.ts)
+**Example**: [A Simple HTML Code Constructor](/examples/3.%20Behavioral%20patterns/3.11%20Visitor)
