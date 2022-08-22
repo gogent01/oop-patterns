@@ -4,7 +4,10 @@
  * - WHERE
  * - ORDER BY
  *
- * Clause ::= Select | From | Where | OrderBy | Condition | Literal | LiteralGroup | Table | Direction
+ *
+ * Formal grammar in Backus-Naur Form:
+ *
+ * Clause ::= Select | From | Where | OrderBy | Condition | Direction | Literal | LiteralGroup
  * Select ::= 'SELECT' LiteralGroup From Where* OrderBy*
  * From ::= 'FROM' Literal
  * Where ::= 'WHERE' Condition
@@ -13,45 +16,14 @@
  * ConditionLess ::= Literal '<' Number
  * ConditionEqual ::= Literal '=' Number
  * ConditionNotEqual ::= Literal '<>' Number
- * OrderBy ::= 'ORDER BY' Literal Direction
- * Direction ::= 'asc' | 'desc'
+ * OrderBy ::= 'ORDER BY' Direction
+ * Direction ::= DirectionAsc | DirectionDesc
+ * DirectionAsc ::= Literal | Literal 'asc'
+ * DirectionDesc ::= Literal 'desc'
  * Literal ::= string
  * LiteralGroup ::= Literal | Literal LiteralGroup | "*"
  */
 
-interface Column<T> {
-    [name: string]: T[];
-}
-
-class Table {
-    columns: { [column: string]: any[] };
-
-    constructor(...args: Column<any>[]) {
-        this.columns = {};
-
-        args.forEach(column => {
-            const [[colName, values]] = Object.entries(column);
-            this.columns[colName] = values;
-        });
-    }
-
-    colnames(): string[] {
-        return Object.keys(this.columns);
-    }
-
-    addColumn(column: Column<any>): Table {
-        const [[colName, values]] = Object.entries(column);
-        this.columns[colName] = values;
-
-        return this;
-    }
-
-    removeColumn(colName: string): Table {
-        delete this.columns[colName];
-
-        return this;
-    }
-}
 
 class Context {
     tables: { [key: string]: Table };
@@ -80,6 +52,48 @@ class Context {
     }
 }
 
+class Table {
+    columns: { [column: string]: any[] };
+
+    constructor(...args: Column<any>[]) {
+        this.columns = {};
+
+        args.forEach(column => {
+            const [[colName, values]] = Object.entries(column);
+            this.columns[colName] = values;
+        });
+    }
+
+    colnames(): string[] {
+        return Object.keys(this.columns);
+    }
+
+    nrows(): number {
+        const columnsValues = Object.values(this.columns);
+        if (columnsValues.length === 0) return 0;
+
+        return columnsValues[0].length;
+    }
+
+    addColumn(column: Column<any>): Table {
+        const [[colName, values]] = Object.entries(column);
+        this.columns[colName] = values;
+
+        return this;
+    }
+
+    removeColumn(colName: string): Table {
+        delete this.columns[colName];
+
+        return this;
+    }
+}
+
+interface Column<T> {
+    [name: string]: T[];
+}
+
+
 abstract class Clause {
     abstract evaluate(context: Context): Table;
 }
@@ -88,12 +102,14 @@ class Select extends Clause {
     colNames: string[];
     from: From;
     where: Where | undefined;
+    orderBy: OrderBy | undefined;
 
-    constructor(colNames: LiteralGroup, from: From, where: Where | undefined) {
+    constructor(colNames: LiteralGroup, from: From, where: Where | undefined, orderBy: OrderBy | undefined) {
         super();
         this.colNames = colNames['literals'];
         this.from = from;
         this.where = where;
+        this.orderBy = orderBy;
     }
 
     evaluate(context: Context): Table {
@@ -102,6 +118,12 @@ class Select extends Clause {
         if (!!this.where) {
             context.add(table, 'selection');
             table = this.where.evaluate(context);
+            context.remove('selection');
+        }
+
+        if (!!this.orderBy) {
+            context.add(table, 'selection');
+            table = this.orderBy.evaluate(context);
             context.remove('selection');
         }
 
@@ -117,6 +139,7 @@ class Select extends Clause {
     }
 }
 
+
 class LiteralGroup extends Clause {
     literals: string[];
 
@@ -130,6 +153,7 @@ class LiteralGroup extends Clause {
     }
 }
 
+
 class From extends Clause {
     tableName: string;
 
@@ -142,6 +166,7 @@ class From extends Clause {
         return context.get(this.tableName);
     }
 }
+
 
 class Where extends Clause {
     condition: Condition;
@@ -230,6 +255,102 @@ class ConditionLess extends Condition {
     }
 }
 
+
+class OrderBy extends Clause {
+    direction: Direction;
+
+    constructor(direction: Direction) {
+        super();
+        this.direction = direction;
+    }
+
+    evaluate(context: Context): Table {
+        const table = context.get('selection');
+        const orderTable = this.direction.evaluate(context);
+
+        const resultingTable = new Table();
+        for (const colName of table.colnames()) {
+            const orderedColumn = this.reorderColumn(table.columns[colName], orderTable.columns['order']);
+            resultingTable.addColumn({ [colName]: orderedColumn });
+        }
+        return resultingTable;
+    }
+
+    reorderColumn<T>(values: T[], index: number[]): T[] {
+        return index.map(idx => values[idx]);
+    }
+}
+
+abstract class Direction extends Clause {
+    colName: string;
+
+    constructor(colName: string) {
+        super();
+        this.colName = colName;
+    }
+
+    evaluate(context: Context): Table {
+        const table = context.get('selection');
+        const cells = table.columns[this.colName];
+        let order: number[];
+
+        if (!cells) {
+            console.log(`No column named "${this.colName}" was found!`);
+            order = Array.from(Array(table.nrows()).keys());
+        } else {
+            order = this.getOrder(cells);
+            order = this.doReorder(order);
+        }
+
+        const resultingTable = new Table();
+        resultingTable.addColumn({ order });
+
+        return resultingTable;
+    }
+
+    getOrder(cells: any[]): number[] {
+        const indexedCells = cells.map((cell: any, index: number): IndexedCell => ({ index, value: cell }));
+        const indexedCellsAsc = indexedCells.sort(this.sortingFunction);
+        return indexedCellsAsc.map(indexedCell => indexedCell.index);
+    }
+
+    sortingFunction(a: IndexedCell, b: IndexedCell): number {
+        if (typeof a.value === 'string' && typeof b.value === 'string') {
+            return a.value.localeCompare(b.value, undefined, { numeric: true });
+        }
+
+        return a.value - b.value;
+    }
+
+    abstract doReorder(order: number[]): number[];
+}
+
+interface IndexedCell {
+    index: number;
+    value: any;
+}
+
+class DirectionAsc extends Direction {
+    constructor(colName: string) {
+        super(colName);
+    }
+
+    doReorder(order: number[]): number[] {
+        return order;
+    }
+}
+
+class DirectionDesc extends Direction {
+    constructor(colName: string) {
+        super(colName);
+    }
+
+    doReorder(order: number[]): number[] {
+        return order.reverse();
+    }
+}
+
+
 const store_reports = new Table(
     { day: [1, 2, 3, 4, 5, 6, 7] },
     { customers: [75, 40, 84, 92, 48, 66, 103] },
@@ -251,14 +372,16 @@ context.add(store_reports, 'store_reports');
 context.add(mt_cars, 'mt_cars');
 
 
-let query = 'SELECT day,revenue FROM store_reports WHERE customers > 75';
+let query = 'SELECT day,revenue FROM store_reports WHERE customers > 75 ORDER_BY revenue asc';
 console.log(query);
 
 let columns = new LiteralGroup(['day', 'revenue']);
 let from = new From('store_reports');
 let condition = new ConditionMore('customers', 75);
 let where = new Where(condition);
-let select = new Select(columns, from, where);
+let direction = new DirectionAsc('revenue');
+let orderBy = new OrderBy(direction);
+let select = new Select(columns, from, where, orderBy);
 let result = select.evaluate(context);
 console.log(result);
 
@@ -268,34 +391,37 @@ console.log(query);
 
 columns = new LiteralGroup(['day', 'revenue', 'products_sold']);
 from = new From('store_reports');
-select = new Select(columns, from, undefined);
+select = new Select(columns, from, undefined, undefined);
 result = select.evaluate(context);
 console.log(result);
 
 
-query = 'SELECT mpg,disp,hp FROM mt_cars WHERE hp <> 110';
+query = 'SELECT mpg,disp,hp FROM mt_cars WHERE hp <> 110 ORDER_BY mpg asc';
 console.log(query);
 
 columns = new LiteralGroup(['mpg', 'disp', 'hp']);
 from = new From('mt_cars');
 condition = new ConditionNotEqual('hp', 110);
 where = new Where(condition);
-select = new Select(columns, from, where);
+direction = new DirectionAsc('mpg');
+orderBy = new OrderBy(direction);
+select = new Select(columns, from, where, orderBy);
 result = select.evaluate(context);
 console.log(result);
 
 
-query = 'SELECT * FROM mt_cars WHERE hp = 110';
+query = 'SELECT * FROM mt_cars WHERE hp = 110 ORDER_BY carb desc';
 console.log(query);
 
 columns = new LiteralGroup(['*']);
 from = new From('mt_cars');
 condition = new ConditionEqual('hp', 110);
 where = new Where(condition);
-select = new Select(columns, from, where);
+direction = new DirectionDesc('carb');
+orderBy = new OrderBy(direction);
+select = new Select(columns, from, where, orderBy);
 result = select.evaluate(context);
 console.log(result);
 
 
-// TODO: ORDER_BY
 // TODO: query parser
