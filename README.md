@@ -68,7 +68,7 @@ An Interpreter should be used when:
 
 **Structure**
 
-**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.3%20Interpreter.ts)
+**Example**: [A Simple SQL Interpreter](/examples/3.%20Behavioral%20patterns/3.3%20Interpreter.ts)
 
 ***
 
@@ -94,7 +94,7 @@ All `Colleagues` send update requests to `Mediator` and answer on `Mediator`'s r
 
 **Structure**
 
-**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.5%20Mediator.ts)
+**Example**: [An "Edit Font" Dialog Window](/examples/3.%20Behavioral%20patterns/3.5%20Mediator.ts)
 
 ***
 
@@ -126,7 +126,7 @@ If `Observers` depend on multiple `Subjects`, `Mediator` may be required to peri
 
 **Structure**
 
-**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.7%20Observer.ts)
+**Example**: [Clock Widgets](/examples/3.%20Behavioral%20patterns/3.7%20Observer.ts)
 
 ***
 
@@ -150,7 +150,7 @@ One problem to keep in scope — a necessity to specifically name `TemplateMetho
 
 **Structure**
 
-**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.10%20Template%20Method.ts)
+**Example**: [Living Patterns of Animals](/examples/3.%20Behavioral%20patterns/3.10%20Template%20Method.ts)
 
 ***
 
@@ -180,4 +180,4 @@ Visitor is used when there is a need to traverse a tree structure, consisting of
 
 **Structure**
 
-**Example**: [Full example](/examples/3.%20Behavioral%20patterns/3.11%20Visitor.ts)
+**Example**: [A Simple HTML Code Constructor](/examples/3.%20Behavioral%20patterns/3.11%20Visitor.ts)
