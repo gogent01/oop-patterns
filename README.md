@@ -29,7 +29,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   - 3.6 Memento
   - [3.7 Observer](#37-observer)
   - 3.8 State
-  - 3.9 Strategy
+  - [3.9 Strategy](#39-strategy)
   - [3.10 Template Method](#310-template-method)
   - [3.11 Visitor](#311-visitor)
   
@@ -127,6 +127,38 @@ If `Observers` depend on multiple `Subjects`, `Mediator` may be required to peri
 **Structure**
 
 **Example**: [Clock Widgets](/examples/3.%20Behavioral%20patterns/3.7%20Observer.ts)
+
+***
+
+### 3.9 Strategy
+
+**Purpose**
+
+Strategy allows defining multiple algorithms of object handling by a client (class). The algorithms are incapsulated in separate classes and are passed to an instance of the client class during its initialization. Strategies may also be interchanged during code execution.
+
+**When to use**
+
+Strategy is used when:
+- there are multiple algorithms of object processing;
+- making subclasses of a client with different algorithm implementation changes only algorithm implementation;
+- some algorithms use data the client should know nothing about;
+- *the client class contains conditional operators, defining object processing behavior.*
+
+**Participants and interrelations**
+
+- `Strategy` — defines a common interface for all `ConcreteStrategies`. The point is that not all `ConcreteStrategies` are going to need all the data passed to them — but the common interface is required for a client to be separated from strategies' implementations.
+
+- `ConcreteStrategy` — implements an algorithm, using an interface, declared by `Strategy`.
+
+- `Context` — instantiated with `ConcreteStrategy` and may declare an interface to be used by any `Strategy`.
+
+A `Context` may pass all parameters to `Strategy` calls or send data on requests from `Strategies`.
+
+*A common sign of using a Strategy pattern is use of conditional operators to select data processing algorithm. Instead, one should instantiate the client with a suitable `Strategy` and call processing with it when needed.*
+
+**Structure**
+
+**Example**: [Text to Figures Formatter](/examples/3.%20Behavioral%20patterns/3.9%20Strategy.ts)
 
 ***
 
