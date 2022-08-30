@@ -6,7 +6,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 
 1. Creational patterns
   - 1.1 Abstract Factory
-  - 1.2 Builder
+  - [1.2 Builder](#12-builder)
   - 1.3 Factory Method
   - 1.4 Prototype
   - 1.5 Singleton
@@ -36,6 +36,38 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   
 ## 1. Creational patterns
 
+### 1.2 Builder
+
+**Purpose**
+
+Builder pattern defines a process of building a complex object step-by-step, leaving steps implementation to various Builder classes.
+
+**When to use**
+
+Builder pattern is useful when a logic of creating a complex object stays the same across all of them, but details of their creation vary. Great for adding in variability.
+
+**Participants and interrelations**
+
+- `Builder` — defines an interface of an object's parts creation.
+
+- `ConcreteBuilder` — implements creation logic, keeps the built object and returns it on demand.
+
+- `Director` — defines building steps and executes them using a specified `ConcreteBuilder`.
+
+- `Product` — a built complex product. Usually consists of multiple classes corresponding to its parts.
+
+A `Builder` usually defines its methods not as abstract, but as empty. Thus `ConcreteBuilders` get a possibility of implementing only some of `Builder`'s methods, which are required for the process of building its `Product`. In this case other steps, issued by a `Director`, are skipped.
+
+The Builder pattern is very similar to a class constructor, but has some scenarios where it proves useful:
+- when an object is constructed in a complex way, including `async` steps;
+- *when creating pipelines;*
+- *when creating object graphs;*
+- when an object has lots of arguments to be passed to a constructor — then using the Builder pattern may improve readability;
+- when a client wants to select parameters for creation of a complex object instance — this allows to avoid making multiple constructors for each scenario.
+
+**Structure**
+
+**Example**: [Breakfast builder](/examples/1.%20Creational%20patterns/1.2%20Builder.ts)
 
 ## 2. Structural patterns
 
