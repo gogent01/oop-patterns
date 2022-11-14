@@ -8,7 +8,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   - 1.1 Abstract Factory
   - [1.2 Builder](#12-builder)
   - 1.3 Factory Method
-  - 1.4 Prototype
+  - [1.4 Prototype](#14-prototype)
   - 1.5 Singleton
   
 2. Structural patterns
@@ -40,11 +40,11 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 
 **Purpose**
 
-Builder pattern defines a process of building a complex object step-by-step, leaving steps implementation to various Builder classes.
+A Builder pattern defines a process of building a complex object step-by-step, leaving steps implementation to various Builder classes.
 
 **When to use**
 
-Builder pattern is useful when a logic of creating a complex object stays the same across all of them, but details of their creation vary. Great for adding in variability.
+The Builder pattern is useful when a logic of creating a complex object stays the same across all of them, but details of their creation vary. Great for adding in variability.
 
 **Participants and interrelations**
 
@@ -68,6 +68,34 @@ The Builder pattern is very similar to a class constructor, but has some scenari
 **Structure**
 
 **Example**: [Breakfast builder](/examples/1.%20Creational%20patterns/1.2%20Builder.ts)
+
+
+### 1.4 Prototype
+
+**Purpose**
+
+A Prototype pattern allows a convenient reuse of complex objects while hiding their implementations from clients. Additionally, may come with a library of Prototypes to choose from.
+
+**When to use**
+
+The Prototype pattern is useful when invoking default-initialized heterogeneous objects, e.g. shapes and texts in a graphic redactor. It also enables a quick addition of other objects when needed.
+
+**Participants and interrelations**
+
+- `Client` — picks a `ConcretePrototype` from a library and invokes a `clone()` operation on it for further use.
+
+- `Prototype` — defines an interface with a `clone()` function.
+
+- `ConcretePrototype` — implements all steps requiring to `clone()` itself: create an empty self and initialize it with default values.
+
+- `PrototypeLibrary` — an object defining methods to add, remove and retrieve `ConcretePrototypes` by a `Client`. Allows dynamics in `Prototype` assortment!
+
+The Prototype pattern may decrease the amount of required classes dramatically — by making several differently initialized objects based on one class (e.g. full, half and quarter notes with corresponding vector images of each base on one Note class). The only problem comes with complex objects when deep cloning and circular references are an issue. It can be solved in `ConcretePrototype` class code, but requires time and skill to work it out.
+
+**Structure**
+
+**Example**: [Letter composer](/examples/1.%20Creational%20patterns/1.4%20Prototype.ts)
+
 
 ## 2. Structural patterns
 

@@ -59,6 +59,26 @@ class Breakfast {
     }
 }
 
+class BreakfastDirector {
+    chef: BreakfastBuilder;
+
+    constructor(chef: BreakfastBuilder) {
+        this.chef = chef;
+    }
+
+    cookBreakfast(): Breakfast {
+        this.chef.startCooking();
+
+        this.chef.addProteins();
+        this.chef.addCarbs();
+        this.chef.addFats();
+        this.chef.addFlavors();
+        this.chef.addDrinks();
+
+        return this.chef.getBreakfast();
+    }
+}
+
 abstract class BreakfastBuilder {
     breakfast: Breakfast;
 
@@ -160,26 +180,6 @@ class MediterraneanBreakfastBuilder extends BreakfastBuilder {
 
     addDrinks(): void {
         this.breakfast.addDrink('fresh-squeezed apple juice');
-    }
-}
-
-class BreakfastDirector {
-    chef: BreakfastBuilder;
-
-    constructor(chef: BreakfastBuilder) {
-        this.chef = chef;
-    }
-
-    cookBreakfast(): Breakfast {
-        this.chef.startCooking();
-
-        this.chef.addProteins();
-        this.chef.addCarbs();
-        this.chef.addFats();
-        this.chef.addFlavors();
-        this.chef.addDrinks();
-
-        return this.chef.getBreakfast();
     }
 }
 
