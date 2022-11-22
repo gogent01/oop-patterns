@@ -9,7 +9,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   - [1.2 Builder](#12-builder)
   - 1.3 Factory Method
   - [1.4 Prototype](#14-prototype)
-  - 1.5 Singleton
+  - [1.5 Singleton](#15-singleton)
   
 2. Structural patterns
   - 2.1 Adapter
@@ -95,6 +95,34 @@ The Prototype pattern may decrease the amount of required classes dramatically �
 **Structure**
 
 **Example**: [Letter composer](/examples/1.%20Creational%20patterns/1.4%20Prototype.ts)
+
+
+### 1.5 Singleton
+
+**Purpose**
+
+A Singleton design pattern guarantees that a class has only one instance and grants an access point to it.
+
+**When to use**
+
+The Singleton pattern is useful when it is highly crucial that a class should have only one instance.
+
+**Participants and interrelations**
+
+- `Singleton` — hides public constructor of a class and defines a static `Instance` method that handles instance creation and passing.
+
+The Singleton is frequently considered an **antipattern** as it violates the SRP: any Singleton controls its life-cycle and functionality. Additionally, it:
+- hinders unit testing (one cannot inject other than defined Singleton, e.g. a testing Singleton with mocks);
+- interferes with concurrency when used with asynchronous resources;
+- often is used as just a storage for global variables being a complex global object itself — and globals are bad in any form.
+
+Usually one can ensure singleness of a class instance by creating it early in code and injecting it into other classes OR by using an `Abstract Factory`, managing this class life-cycle (thus not violating SRP).
+
+The benefits of Singleton design pattern are in that it hides all the details of its implementation and can be called from anywhere for its functionality. Some experienced programmers on the Internet suggest _using Singletons on resources that do not affect an application's logic_, e.g. log files handling.
+
+**Structure**
+
+**Example**: [Application logger](/examples/1.%20Creational%20patterns/1.5%20Singleton.ts)
 
 
 ## 2. Structural patterns
