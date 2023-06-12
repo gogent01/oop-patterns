@@ -1,0 +1,55 @@
+{
+  "name": "oop-patterns",
+  "version": "1.0.0",
+  "description": "A workbook to work through all common design patterns listed in a corresponding book",
+  "main": "index.ts",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gogent01/oop-patterns-workbook.git"
+  },
+  "author": "Georgy Mishurovskiy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gogent01/oop-patterns-workbook/issues"
+  },
+  "homepage": "https://github.com/gogent01/oop-patterns-workbook#readme",
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.3"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "prettier"
+    ],
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "prettier/prettier": "warn"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120,
+    "semi": true
+  }
+}

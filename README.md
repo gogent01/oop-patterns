@@ -5,7 +5,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 ## Table of contents
 
 1. Creational patterns
-  - 1.1 Abstract Factory
+  - [1.1 Abstract Factory](#11-abstract-factory)
   - [1.2 Builder](#12-builder)
   - 1.3 Factory Method
   - [1.4 Prototype](#14-prototype)
@@ -35,6 +35,40 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   
   
 ## 1. Creational patterns
+
+### 1.1 Abstract Factory
+
+**Purpose**
+
+An Abstract Factory pattern is used for creation of components belonging to one of component families. Which component family to use is decided at the moment of Abstract Factory creation or can be changed later with a setter method.
+
+**When to use**
+
+The Abstract Factory pattern is handy when an application has sets of similar components with a same general behavior (e.g. GUI components for different operating systems). Using this pattern decouples work with these components from concrete implementations by using interfaces of similar components rather than their implementations.
+
+**Participants and interrelations**
+
+- `AbstractFactory` — defines an interface of a factory (either separate methods for creation of each type of components or a single method with an argument specifying which component to create).
+
+- `ConcreteFactory` — implementation of a factory for a family of components.
+
+- `AbstractProduct` — defines an interface of a component type.
+
+- `ConcreteProduct` — an implementation of component type for a particular family of components.
+
+All `ConcreteFactories`' methods should use `AbstractProducts` return types for their methods. This way a client does not know about particular `ConcreteProduct` implementation and uses `AbstractProduct` interface for any actions. For a same purpose a client should rely on an `AbstractFactory` interface rather than on any of `ConcreteFactories`.
+
+A `ConcreteFactory` is usually the only one in an application and thus may be implemented as a `Singleton`.
+
+Using an Abstract Factory provides following benefits:
+- A Client is isolated from concrete class implementations and relies only on an abstract interface of an Abstract Factory.
+- It is ensured that all components created belong to a single family.
+- It is easy to add new families of components (by extending abstract interfaces of a factory and all components).
+
+**Structure**
+
+**Example**: [Disease guidelines](/examples/1.%20Creational%20patterns/1.1%20Abstract%20Factory)
+
 
 ### 1.2 Builder
 
@@ -125,10 +159,10 @@ The benefits of Singleton design pattern are in that it hides all the details of
 **Example**: [Application logger](/examples/1.%20Creational%20patterns/1.5%20Singleton.ts)
 
 
-## 2. Structural patterns
+## 2. Structural Patterns
 
 
-## 3. Behavioral patterns
+## 3. Behavioral Patterns
 
 ### 3.3 Interpreter
 
