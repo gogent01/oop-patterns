@@ -21,7 +21,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   - 2.7 Proxy
   
 3. Behavioral patterns
-  - 3.1 Chain of Responsibility
+  - [3.1 Chain of Responsibility](#31-chain-of-responsibility)
   - 3.2 Command
   - [3.3 Interpreter](#33-interpreter)
   - 3.4 Iterator
@@ -69,6 +69,7 @@ Using an Abstract Factory provides following benefits:
 
 **Example**: [Disease guidelines](/examples/1.%20Creational%20patterns/1.1%20Abstract%20Factory)
 
+***
 
 ### 1.2 Builder
 
@@ -103,6 +104,7 @@ The Builder pattern is very similar to a class constructor, but has some scenari
 
 **Example**: [Breakfast builder](/examples/1.%20Creational%20patterns/1.2%20Builder.ts)
 
+***
 
 ### 1.4 Prototype
 
@@ -130,6 +132,7 @@ The Prototype pattern may decrease the amount of required classes dramatically �
 
 **Example**: [Letter composer](/examples/1.%20Creational%20patterns/1.4%20Prototype.ts)
 
+***
 
 ### 1.5 Singleton
 
@@ -163,6 +166,34 @@ The benefits of Singleton design pattern are in that it hides all the details of
 
 
 ## 3. Behavioral Patterns
+
+### 3.1 Chain of Responsibility
+
+**Purpose**
+
+Chain of Responsibility represents a pattern that separates a request sender from its handler(s). A client sending a request only has to know a first handler. The handlers are chained and can perform request processing and/or send it to next handler as well as terminate all processing of the request.
+
+**When to use**
+
+A Chain of Responsibility is useful when:
+- there are many types of request to process and it the concrete request type is unknown beforehand (thus any processor can check if it can process this type of request and past it over);
+- there has to be a concrete order of request processing;
+- the sequence of processors to handle a request may change during runtime.
+
+**Participants and interrelations**
+
+- `RequestHandler` — an interface declaring a `handle(request: Request)` function and a `setNext(handler: RequestHandler)`.
+- `ConcreteHandler` — implements `handle(request: Request)` and `setNext(handler: RequestHandler)` functions.
+- `Client` — instantiates handlers and sets a chain of them, which may change dynamically, depending on an application logic. 
+
+This pattern can be implemented using inheritance or class mixins. 
+A request can be sent to any handler of the chain, not necessarily the first one. Processing of a request may be terminated anytime, as well as all requests are not guaranteed to be processed. A handler may perform some processing, but continue the handling to a next handler.
+
+**Structure**
+
+**Example**: 
+
+***
 
 ### 3.3 Interpreter
 
