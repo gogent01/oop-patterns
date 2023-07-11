@@ -7,7 +7,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
 1. Creational patterns
   - [1.1 Abstract Factory](#11-abstract-factory)
   - [1.2 Builder](#12-builder)
-  - 1.3 Factory Method
+  - [1.3 Factory Method](#13-factory-method)
   - [1.4 Prototype](#14-prototype)
   - [1.5 Singleton](#15-singleton)
   
@@ -67,7 +67,7 @@ Using an Abstract Factory provides following benefits:
 
 **Structure**
 
-**Example**: [Disease guidelines](/examples/1.%20Creational%20patterns/1.1%20Abstract%20Factory)
+**Example**: [Disease guidelines](/examples/1.%20Creational%20patterns/1.1%20Abstract%20Factory/index.ts)
 
 ***
 
@@ -103,6 +103,45 @@ The Builder pattern is very similar to a class constructor, but has some scenari
 **Structure**
 
 **Example**: [Breakfast builder](/examples/1.%20Creational%20patterns/1.2%20Builder.ts)
+
+***
+
+### 1.3 Factory Method
+
+**Purpose**
+
+A Factory Method extracts product creation from a client class, thus a client comes able to create new products without knowing their concrete type. This patterns increases code flexibility when there is a need to create some products from a family of similar objects.
+
+**When to use**
+
+Use Factory Method when there are multiple `Product` objects, accustomed to some environment conditions and a client class, creating a `Product` does not need to know these details.
+
+**Participants and interrelations**
+
+- `AbstractCreator` — defines an abstract or a concrete class of a creator with a `createProduct` method + additional higher-level logic. A `Creator` *is* a client.
+
+- `ConcreteCreator` — implementation of the `AbstractCreator`. Usually only overrides the logic of product creation.
+
+- `AbstractProduct` — defines an interface of a product.
+
+- `ConcreteProduct` — an implementation of a particular product.
+
+The primary function of any `AbstractCreator` is not to create particular objects. Its purpose is more higher-level, e.g. creation of a form that uses components of a concrete UI kit. In order to create a higher-level component, the `AbstractCreator` uses Factory Methods inside, which are overridden in each of `ConcreteCreator`s. A client uses the interface of the `AbstractCreator`, and the `ConcreteCreator` for the client is selected depending on conditions of an environment.
+
+All `createProduct` methods should use an `AbstractProduct` return type. This way a client does not know about particular `ConcreteProduct` implementation and uses `AbstractProduct` interface for any actions. For a same purpose a client uses the `AbstractCreator` interface rather than any of `ConcreteCreators`'.
+
+A bunch of `AbstractCreators` may be transformed into an `AbstractFactory`. The main difference is that Factory Method pattern uses inheritance to create different products (`ConcreteCreators` are `Clients` and are derived from an `AbstractCreator`) and Abstract Factory uses composition (`ConcreteFactories` are injected into a `Client`).
+
+Also, Factory Method pattern is just a specialized Template Method pattern. The difference is that the former creates objects and the latter operates upon objects.
+
+Using a Factory Method provides following benefits:
+- A Client is isolated from `ConcreteProduct`s implementations and relies only on an abstract interface of an `AbstractProduct`.
+- It is easy to add new types of products (by adding new `ConcreteCreator` and `ConcreteProduct`).
+- A Factory Method may not only create `new` instances, it may also return existing ones, thus saving resources when working with complex components.
+
+**Structure**
+
+**Example**: [Patients and pills](/examples/1.%20Creational%20patterns/1.3%20Factory%20Method/index.ts)
 
 ***
 
@@ -365,4 +404,4 @@ Visitor is used when there is a need to traverse a tree structure, consisting of
 
 **Structure**
 
-**Example**: [A Simple HTML Code Constructor](/examples/3.%20Behavioral%20patterns/3.11%20Visitor)
+**Example**: [A Simple HTML Code Constructor](/examples/3.%20Behavioral%20patterns/3.11%20Visitor/index.ts)
