@@ -12,7 +12,7 @@ This workbook contains all patterns described in "Design Patterns. Elements of R
   - [1.5 Singleton](#15-singleton)
   
 2. Structural patterns
-  - 2.1 Adapter
+  - [2.1 Adapter](#21-adapter)
   - 2.2 Bridge
   - 2.3 Composite
   - 2.4 Decorator
@@ -202,6 +202,31 @@ The benefits of Singleton design pattern are in that it hides all the details of
 
 
 ## 2. Structural Patterns
+
+### 2.1 Adapter
+
+**Purpose**
+
+An Adapter is a pattern which used to fit one object's interface to an interface of a client class. This is achieved by creation of a wrapper class, inheriting from a client class or implementing its interface. Some of the client's class properties and methods get implemented by using object's original interface. Some properties and methods are implemented from scratch, having no relation to the original object functioning. 
+
+**When to use**
+
+The Adapter pattern is useful when:
+- there is some existing class which is required for use, but its interface is not compatible with the rest of the code;
+- there is a family of subclasses which cannot be changed, but they should have some additional common properties and methods.
+
+**Participants and interrelations**
+
+- `Client` — an interface or a base class for all `ConcreteClient` classes to adhere.
+- `ConcreteClient` — a class implementing the `Client` interface.
+- `Adaptee` — a class, which interface is not compatible with the client one.
+- `Adapter` — a wrapper class implementing the `Client` interface, holding a reference to an injected `Adaptee` instance. May implement the `Client` interface using properties and methods of the `Adaptee` instance or without them.
+
+In languages that support multiple inheritance (C++) an `Adapter` may inherit both from a `Client` and `Adaptee`. But this implementation of the pattern increases coupling, which is usually undesirable.
+
+**Structure**
+
+**Example**: [Statistics Calculation on Data from Different Sources](/examples/2.%20Structural%20patterns/2.1%20Adapter)
 
 
 ## 3. Behavioral Patterns
