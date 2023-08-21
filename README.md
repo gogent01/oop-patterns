@@ -67,7 +67,7 @@ Using an Abstract Factory provides following benefits:
 
 **Structure**
 
-**Example**: [Disease guidelines](/examples/1.%20Creational%20patterns/1.1%20Abstract%20Factory/index.ts)
+**Example**: [Disease Guidelines](/examples/1.%20Creational%20patterns/1.1%20Abstract%20Factory/index.ts)
 
 ***
 
@@ -102,7 +102,7 @@ The Builder pattern is very similar to a class constructor, but has some scenari
 
 **Structure**
 
-**Example**: [Breakfast builder](/examples/1.%20Creational%20patterns/1.2%20Builder.ts)
+**Example**: [Breakfast Builder](/examples/1.%20Creational%20patterns/1.2%20Builder.ts)
 
 ***
 
@@ -141,7 +141,7 @@ Using a Factory Method provides following benefits:
 
 **Structure**
 
-**Example**: [Patients and pills](/examples/1.%20Creational%20patterns/1.3%20Factory%20Method/index.ts)
+**Example**: [Patients and Pills](/examples/1.%20Creational%20patterns/1.3%20Factory%20Method/index.ts)
 
 ***
 
@@ -169,7 +169,7 @@ The Prototype pattern may decrease the amount of required classes dramatically â
 
 **Structure**
 
-**Example**: [Letter composer](/examples/1.%20Creational%20patterns/1.4%20Prototype.ts)
+**Example**: [Letter Composer](/examples/1.%20Creational%20patterns/1.4%20Prototype.ts)
 
 ***
 
@@ -198,7 +198,7 @@ The benefits of Singleton design pattern are in that it hides all the details of
 
 **Structure**
 
-**Example**: [Application logger](/examples/1.%20Creational%20patterns/1.5%20Singleton.ts)
+**Example**: [An Application Logger](/examples/1.%20Creational%20patterns/1.5%20Singleton.ts)
 
 
 ## 2. Structural Patterns
@@ -255,7 +255,7 @@ A request can be sent to any handler of the chain, not necessarily the first one
 
 **Structure**
 
-**Example**: 
+**Example**: [Routing of Dermatological Patients](/examples/3.%20Behavioral%20patterns/3.1%20Chain%20of%20Responsibility.ts)
 
 ***
 
@@ -429,4 +429,4 @@ Visitor is used when there is a need to traverse a tree structure, consisting of
 
 **Structure**
 
-**Example**: [A Simple HTML Code Constructor](/examples/3.%20Behavioral%20patterns/3.11%20Visitor/index.ts)
+**Example**: [A Simple HTML Code Builder](/examples/3.%20Behavioral%20patterns/3.11%20Visitor/index.ts)
